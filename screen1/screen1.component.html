@@ -1,0 +1,101 @@
+<div>
+    <caption>Registration</caption>
+</div><br>
+
+
+<div class="table1" >
+    <div><button>Add</button></div><br>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>DateOfBirth</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Gender</th>
+            <th>Action</th>
+        </tr>
+        <tr *ngFor="let i of data; let id = index">
+            <td>{{id+1}}</td>
+            <td>{{i.Name}}</td>
+            <td>{{i.DOb | date}}</td>
+            <td>{{i.Email}}</td>
+            <td>{{i.Contact}}</td>
+            <td>{{i.Gender}}</td>
+            <td><button>Edit</button> <button>Delete</button></td>
+        </tr>
+    </table>
+</div>
+<br>
+<div >
+    <form [formGroup]="recForm">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" formControlName="name" name="name">
+            <div *ngIf="recForm.controls['name'].invalid && (recForm.controls['name'].dirty || recForm.controls['name'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="recForm.controls['name'].errors.required" class="error">
+                    Name is required.
+                </div>
+                <div *ngIf="recForm.controls['name'].errors.minlength" class="error">
+                    Name must be at least 4 characters long.
+                </div>
+            </div>
+        </div>
+        <div>
+            <label for="dob">DateOfBirth</label>
+            <input type="date" formControlName="dob" name="dob">
+            <div *ngIf="recForm.controls['dob'].invalid && (recForm.controls['dob'].dirty || recForm.controls['dob'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="recForm.controls['dob'].errors.required" class="error">
+                    Date of Birth is required.
+                </div>
+            </div>
+
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="text" formControlName="email" name="email">
+
+            <div *ngIf="recForm.controls['email'].invalid && (recForm.controls['email'].dirty || recForm.controls['email'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="recForm.controls['email'].errors.required" class="error">
+                    Email is required.
+                </div>
+                <div *ngIf="recForm.controls['email'].errors.email" class="error">
+                    Invalid mail.
+                </div>
+            </div>
+        </div>
+        <div>
+            <label for="contact">Contact</label>
+            <input type="text" formControlName="contact" name="contact">
+
+            <div *ngIf="recForm.controls['contact'].invalid && (recForm.controls['contact'].dirty || recForm.controls['contact'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="recForm.controls['contact'].errors.required" class="error">
+                    Contact Number is required.
+                </div>
+                <div *ngIf="recForm.controls['contact'].errors.pattern" class="error">
+                    Invalid Contact Number.
+                </div>
+            </div>
+        </div>
+        <div>
+            <label for="gender">Gender:</label>
+            <input type="radio" formControlName="gender" name="gender" value="Male">male
+            <input type="radio" formControlName="gender" name="gender" value="Female">Female
+            <div *ngIf="recForm.controls['gender'].invalid && (recForm.controls['gender'].dirty || recForm.controls['gender'].touched)"
+                class="alert alert-danger">
+                <div *ngIf="recForm.controls['gender'].error.required" class="error">
+                    gender is required.
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <span> <button>Close</button>&nbsp; <button  (click)="addlist()"  [disabled]="recForm.pristine || recForm.invalid">Submit</button></span>
+
+        </div>
+    </form>
+</div>
